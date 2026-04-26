@@ -316,12 +316,16 @@ async function handleFormSubmit() {
     const res = await fetch('https://api.github.com/users/NVitschDEV');
     if (res.ok) {
       const data = await res.json();
-      const el = document.getElementById('stat-repos');
-      if (el && data.public_repos) el.textContent = data.public_repos;
+      // Use querySelectorAll to find every instance of the class
+      const repoEls = document.querySelectorAll('.stat-repos');
+      repoEls.forEach(el => {
+        if (data.public_repos) {
+          el.textContent = data.public_repos;
+        }
+      });
     }
   } catch (_) { /* silently fail — static fallback shown */ }
 })();
-
 /* ── Smooth active nav highlight ─────────────────────────────────────── */
 const sections = document.querySelectorAll('section[id]');
 const navAnchors = document.querySelectorAll('.nav-links a[href^="#"]');
