@@ -168,6 +168,9 @@ body::after {
   letter-spacing: -0.02em;
   font-variation-settings: "opsz" 144;
 }
+
+.nav-logo:hover { color: var(--accent); }
+
 .nav-logo span { color: var(--accent); font-style: normal; font-weight: 400; }
 
 .nav-left {
