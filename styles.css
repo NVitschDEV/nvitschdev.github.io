@@ -170,6 +170,22 @@ body::after {
 }
 .nav-logo span { color: var(--accent); font-style: normal; font-weight: 400; }
 
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* Change this number to get the exact spacing you want */
+}
+
+.nav-logo_journal {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 500;
+  font-style: italic;
+  color: var(--text-1);
+  letter-spacing: -0.02em;
+  font-variation-settings: "opsz" 144;
+}
+
 .nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
 .nav-links a {
   font-family: var(--font-mono);
