@@ -1,0 +1,277 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+  NVitschDEV — Editorial dark/light design system.
+  All colors HSL. Tokens only — never hardcoded hex in components.
+*/
+
+@layer base {
+  :root {
+    /* Light mode = warm paper */
+    --background: 38 40% 96%;
+    --foreground: 30 12% 12%;
+
+    --card: 38 40% 96%;
+    --card-foreground: 30 12% 12%;
+
+    --popover: 38 30% 98%;
+    --popover-foreground: 30 12% 12%;
+
+    --primary: 30 12% 12%;
+    --primary-foreground: 38 40% 96%;
+
+    --secondary: 35 25% 90%;
+    --secondary-foreground: 30 12% 12%;
+
+    --muted: 35 20% 88%;
+    --muted-foreground: 30 8% 38%;
+
+    --accent: 22 90% 58%;
+    --accent-foreground: 38 40% 96%;
+    --accent-soft: 28 80% 70%;
+    --accent-cream: 38 60% 90%;
+
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 38 40% 96%;
+
+    --border: 30 15% 82%;
+    --input: 30 15% 82%;
+    --ring: 22 90% 58%;
+
+    --radius: 1rem;
+
+    /* Editorial gradient (orange → peach → cream) */
+    --gradient-warm: linear-gradient(
+      100deg,
+      hsl(22 90% 55%) 0%,
+      hsl(28 85% 68%) 45%,
+      hsl(38 70% 88%) 100%
+    );
+    --gradient-warm-soft: linear-gradient(
+      120deg,
+      hsl(22 90% 55% / 0.18),
+      hsl(38 70% 88% / 0.05)
+    );
+
+    /* Vignette glows */
+    --glow-vignette:
+      radial-gradient(60% 50% at 90% 0%, hsl(22 90% 55% / 0.10), transparent 60%),
+      radial-gradient(60% 50% at 0% 100%, hsl(28 85% 60% / 0.06), transparent 60%);
+
+    --shadow-elegant: 0 30px 80px -30px hsl(30 30% 5% / 0.25);
+    --shadow-card: 0 1px 0 0 hsl(var(--border)) inset, 0 30px 60px -40px hsl(30 30% 5% / 0.25);
+
+    --transition-smooth: cubic-bezier(0.4, 0.01, 0.2, 1);
+
+    --sidebar-background: 38 40% 96%;
+    --sidebar-foreground: 30 12% 12%;
+    --sidebar-primary: 30 12% 12%;
+    --sidebar-primary-foreground: 38 40% 96%;
+    --sidebar-accent: 35 20% 88%;
+    --sidebar-accent-foreground: 30 12% 12%;
+    --sidebar-border: 30 15% 82%;
+    --sidebar-ring: 22 90% 58%;
+  }
+
+  .dark {
+    /* Dark = deep charcoal */
+    --background: 240 8% 5%;
+    --foreground: 38 40% 94%;
+
+    --card: 240 8% 7%;
+    --card-foreground: 38 40% 94%;
+
+    --popover: 240 10% 6%;
+    --popover-foreground: 38 40% 94%;
+
+    --primary: 38 40% 94%;
+    --primary-foreground: 240 10% 6%;
+
+    --secondary: 240 6% 12%;
+    --secondary-foreground: 38 40% 94%;
+
+    --muted: 240 6% 12%;
+    --muted-foreground: 38 12% 62%;
+
+    --accent: 22 90% 60%;
+    --accent-foreground: 240 10% 6%;
+    --accent-soft: 28 85% 72%;
+    --accent-cream: 38 70% 90%;
+
+    --destructive: 0 65% 55%;
+    --destructive-foreground: 38 40% 94%;
+
+    --border: 240 6% 14%;
+    --input: 240 6% 14%;
+    --ring: 22 90% 60%;
+
+    --gradient-warm: linear-gradient(
+      100deg,
+      hsl(22 95% 60%) 0%,
+      hsl(28 90% 72%) 45%,
+      hsl(38 80% 92%) 100%
+    );
+    --gradient-warm-soft: linear-gradient(
+      120deg,
+      hsl(22 95% 60% / 0.16),
+      hsl(38 80% 92% / 0.03)
+    );
+
+    --glow-vignette:
+      radial-gradient(60% 50% at 90% 0%, hsl(22 95% 55% / 0.12), transparent 60%),
+      radial-gradient(60% 50% at 0% 100%, hsl(240 80% 30% / 0.10), transparent 60%);
+
+    --shadow-elegant: 0 30px 80px -30px hsl(0 0% 0% / 0.7);
+    --shadow-card: 0 1px 0 0 hsl(var(--border)) inset, 0 30px 60px -40px hsl(0 0% 0% / 0.7);
+
+    --sidebar-background: 240 10% 6%;
+    --sidebar-foreground: 38 40% 94%;
+    --sidebar-primary: 22 90% 60%;
+    --sidebar-primary-foreground: 240 10% 6%;
+    --sidebar-accent: 240 6% 12%;
+    --sidebar-accent-foreground: 38 40% 94%;
+    --sidebar-border: 240 6% 14%;
+    --sidebar-ring: 22 90% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: "Inter", system-ui, sans-serif;
+    background-image: var(--glow-vignette);
+    background-attachment: fixed;
+    transition: background-color 0.4s var(--transition-smooth), color 0.4s var(--transition-smooth);
+  }
+
+  ::selection {
+    background: hsl(var(--accent) / 0.35);
+    color: hsl(var(--foreground));
+  }
+
+  /* Hide native cursor over interactive surfaces when custom cursor is on */
+  @media (pointer: fine) {
+    body.has-custom-cursor,
+    body.has-custom-cursor * {
+      cursor: none !important;
+    }
+  }
+}
+
+@layer components {
+  .font-display {
+    font-family: "Fraunces", "Cormorant Garamond", Georgia, serif;
+    font-optical-sizing: auto;
+    letter-spacing: -0.02em;
+  }
+  .font-mono {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+  }
+
+  /* The signature warm gradient text used across the site */
+  .text-gradient-warm {
+    background: var(--gradient-warm);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  /* Small mono label like `// section` */
+  .mono-label {
+    @apply font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground;
+  }
+
+  .pill {
+    @apply inline-flex items-center gap-2 rounded-full border border-border bg-secondary/60 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.15em] text-muted-foreground backdrop-blur;
+  }
+
+  .pill-dot {
+    @apply inline-block h-1.5 w-1.5 rounded-full bg-[hsl(var(--accent))];
+    box-shadow: 0 0 0 3px hsl(var(--accent) / 0.18);
+  }
+
+  .card-surface {
+    @apply rounded-2xl border border-border bg-card/60 backdrop-blur-sm;
+    box-shadow: var(--shadow-card);
+  }
+
+  .hover-lift {
+    transition: transform 0.5s var(--transition-smooth), box-shadow 0.5s var(--transition-smooth), border-color 0.5s var(--transition-smooth);
+  }
+  .hover-lift:hover {
+    transform: translateY(-4px);
+    border-color: hsl(var(--accent) / 0.4);
+    box-shadow: 0 40px 80px -40px hsl(var(--accent) / 0.35);
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.9s var(--transition-smooth), transform 0.9s var(--transition-smooth);
+  }
+  .reveal.in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@layer utilities {
+  .bg-gradient-warm {
+    background-image: var(--gradient-warm);
+  }
+  .bg-gradient-warm-soft {
+    background-image: var(--gradient-warm-soft);
+  }
+
+  .marquee {
+    animation: marquee 40s linear infinite;
+  }
+  .marquee-pause:hover .marquee {
+    animation-play-state: paused;
+  }
+
+  .blink {
+    animation: blink 1.05s steps(1) infinite;
+  }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+@keyframes shimmer {
+  0%   { background-position: 200% 50%; }
+  100% { background-position: -200% 50%; }
+}
+
+.text-shimmer {
+  background: linear-gradient(
+    100deg,
+    hsl(var(--accent)) 0%,
+    hsl(var(--accent-soft)) 30%,
+    hsl(var(--accent-cream)) 55%,
+    hsl(var(--accent-soft)) 80%,
+    hsl(var(--accent)) 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 8s linear infinite;
+}
